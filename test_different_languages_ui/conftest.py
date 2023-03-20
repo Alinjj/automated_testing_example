@@ -2,7 +2,7 @@ from selenium import webdriver
 import pytest
 
 def pytest_addoption(parser):
-    parser.addoption('--language',action='store',default=None,help='Choose language: es or ru')
+    parser.addoption('--language',action='store',default=None,help='Choose language: es,ru,fr')
 
 @pytest.fixture(scope='function')
 def driver(request):
@@ -14,6 +14,9 @@ def driver(request):
     elif language == "es":
         print('\nstart browser with es language...')
         driver.get('http://selenium1py.pythonanywhere.com/es/catalogue/coders-at-work_207/')
+    elif language == "fr":
+        print('\nstart browser with fr language...')
+        driver.get('http://selenium1py.pythonanywhere.com/fr/catalogue/coders-at-work_207/')
     yield driver
     print('\nbrowser quit')
     driver.quit()
