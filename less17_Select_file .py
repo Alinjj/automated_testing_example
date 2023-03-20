@@ -20,7 +20,7 @@ try:
 
     driver.find_element(By.CLASS_NAME,'btn-primary').submit()
 
-    time.sleep(5)
+    #time.sleep(5)
     os.remove(path) #удаляем созданный файл
 
 finally:
