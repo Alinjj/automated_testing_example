@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import pytest
 
 def pytest_addoption(parser):
@@ -7,17 +8,11 @@ def pytest_addoption(parser):
 @pytest.fixture(scope='function')
 def driver(request):
     language = request.config.getoption("language")
-    driver = webdriver.Chrome(executable_path=r'C:\Users\Mogilat Igor\automated_testing_example\test_different_languages_ui\chromedriver.exe')
-    if language == "ru":
-        print('\nstart browser with ru language...')
-        driver.get('http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/')
-    elif language == "es":
-        print('\nstart browser with es language...')
-        driver.get('http://selenium1py.pythonanywhere.com/es/catalogue/coders-at-work_207/')
-    elif language == "fr":
-        print('\nstart browser with fr language...')
-        driver.get('http://selenium1py.pythonanywhere.com/fr/catalogue/coders-at-work_207/')
+    options = Options()
+    options.add_experimental_option('prefs', {'intl.accept_languages': language})
+    driver = webdriver.Chrome(options=options)
+    print("\nlanguage:%s" % language)
     yield driver
-    print('\nbrowser quit')
+    print("\nquit browser..")
     driver.quit()
 
